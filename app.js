@@ -57,7 +57,7 @@ app.listen(port, () => {
 const store = MongoStore.create({
   mongoUrl: dbUrl,
   cryoto : {
-    secret : SECRET
+    secret : process.env.SECRET
   },
   touchAfter : 24 * 3600
 });
@@ -65,7 +65,7 @@ store.on("error", (e) => {console.log(" store error", e)});
 ///setting up secret
 const sessionOptions = {
   store,
-  secret: env.process.SECRET,
+  secret: process.env.SECRET,
   resave: false,
   saveUninitialized: true,
   cookie: {
