@@ -1,0 +1,40 @@
+<%if(success && success.length){%>
+<div
+   id="msg" class="alert alert-success success-message alert-dismissible fade show col-6 offset-3"
+  role="alert"
+>
+  <%=success%>
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="alert"
+    aria-label="Close"
+  ></button>
+</div>
+<%}%>
+
+
+
+<%if(error && error.length){%>
+    <div
+      id="error" class="alert alert-danger error-message alert-dismissible fade show col-6 offset-3"
+      role="alert"
+    >
+      <%=error%>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+      ></button>
+    </div>
+<%}%>
+    
+<script>
+  const msgDiv = document.getElementById('msg');
+  const errorDiv = document.getElementById('error');
+  setTimeout(() => {
+    msgDiv.style.display = 'none';
+    console.log("Message Hidden");
+  }, 5000);
+</script>
