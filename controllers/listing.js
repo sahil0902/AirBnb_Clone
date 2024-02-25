@@ -36,7 +36,23 @@ module.exports.ShowAll = async (req, res, next) => {
     console.log(listing);
     res.render("listings/show.ejs", { listing });
 };
-
+///search route 
+module.exports.searchListing = async (req,res) =>{
+    let search = req.query;
+    console.log(search);
+let query = req.query.query;
+let searchResult = await Listing.find({
+    $or: [
+        { title: { $regex: query, $options: "i" } },
+        { description: { $regex: query, $options: "i" } },
+        { location: { $regex: query, $options: "i" } },
+        { country: { $regex: query, $options: "i" } },
+        { price: { $regex: query, $options: "i" } }
+    ]
+});
+    console.log(searchResult);
+    res.render("listings/search.ejs" ,{searchResult});
+}
 ///create route
 module.exports.CreateListing = async (req, res, next) => {
 
@@ -136,3 +152,4 @@ module.exports.editListing = async (req, res) => {
         res.redirect("/listings");
     }
 };
+

@@ -21,6 +21,8 @@ router.route("/").get(wrapAsync(listingController.index))
   validateListing,
   wrapAsync(listingController.CreateListing)
 );
+///search route
+router.get("/search",isLoggedIn, wrapAsync(listingController.searchListing));
 
 ///new route
 router.get("/new", isLoggedIn, listingController.Add);
@@ -36,7 +38,6 @@ router
     wrapAsync(listingController.updateListing)
   )
   .delete(isLoggedIn, wrapAsync(listingController.deleteListing));
-
 
 // Edit route
 router.get("/:id/edit", isLoggedIn, wrapAsync(listingController.editListing));
