@@ -16,4 +16,20 @@
       }, false)
     })
   })()
-  
+
+  // JavaScript for Preloading Images
+  document.addEventListener('DOMContentLoaded', function () {
+    var images = document.querySelectorAll('.carousel-item img');
+    images.forEach(function (img) {
+      var image = new Image();
+      image.src = img.src;
+    });
+  });
+
+  document.addEventListener('DOMContentLoaded', function () {
+    var images = document.querySelectorAll('.carousel-item img');
+    images.forEach(function (img) {
+      var image = new Image();
+      image.src = img.src;
+    });
+  });

@@ -43,6 +43,8 @@
           type="file"
           class="form-control"
         />
+        <button type="button" id="add-more" class="btn btn-primary">Add more!</button>
+        <div id="image-container"></div>
         <div class="valid-feedback">Perfect!</div>
         <div class="invalid-feedback">Please provide a valid image file.</div>
       </div>
@@ -111,6 +113,8 @@
   </div>
 </div>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <script>
   var form = document.getElementById("add");
   var loadingSpinner = document.getElementById("loadingSpinner");
@@ -132,5 +136,16 @@
       // Prevent form submission if fields are not filled in
       event.preventDefault();
     }
+  });
+
+  $(document).ready(function() {
+    $("#add-more").click(function() {
+      $("#image-container").append('<input name="Listing[image]" type="file" class="form-control mt-2"/> <button class="remove btn btn-dark mt-2">Remove</button>');
+    });
+
+    $("#image-container").on("click", ".remove", function() {
+      $(this).prev().remove(); // Remove the input element
+      $(this).remove(); // Remove the remove button
+    });
   });
 </script>

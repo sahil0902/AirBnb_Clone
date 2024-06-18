@@ -53,35 +53,45 @@ let searchResult = await Listing.find({
     console.log(searchResult);
     res.render("listings/search.ejs" ,{searchResult});
 }
-///create route
 module.exports.CreateListing = async (req, res, next) => {
-
-     
-        let response = await geocodingClient.forwardGeocode({
-            query: `${req.body.Listing.location},${req.body.Listing.city} ${req.body.Listing.country}`,
-            limit: 1
-        }).send();
-
-        console.log("res\t" + JSON.stringify(response.body.features[0].geometry)); // Change this line
-       
    
-try {
-    // req.body is the body of our request - in this case filled by out form
-   let url = req.file.path;
-   let filename = req.file.filename;
-  // console.log(url + "sa" + filename);
-    const newlisting = new Listing(req.body.Listing);
-    newlisting.image = {url,filename};
-    newlisting.owner = req.user._id; //this is how we associate a user with a listing
-    newlisting.geometry = response.body.features[0].geometry;
-    let savedListing = await newlisting.save();
-    console.log(savedListing);
-    req.flash("success", "New Listing Created!");
-    res.redirect("/listings");
-}
-catch(E){
-    console.log("error\t"+ E);
-}
+    if (!req.files || Object.keys(req.files).length === 0) {
+        req.flash("error", "No file uploaded.");
+        return res.redirect("/listings");
+    }
+    let files = req.files['Listing[image][]'];
+    console.log(req.files);
+    if (!Array.isArray(files)) {
+        files = [files];
+    }
+    let response = await geocodingClient.forwardGeocode({
+        query: `${req.body.Listing.location},${req.body.Listing.city} ${req.body.Listing.country}`,
+        limit: 1
+    }).send();
+  
+    console.log("res\t" + JSON.stringify(response.body.features[0].geometry));
+
+    try {
+        const newlisting = new Listing(req.body.Listing);
+        let length = req.files.length;
+        console.log("Length of the array is : ", length);
+        let image = []; // Initialize newlisting.image as an empty array
+        for (let i = 0; i < length; i++) {
+            let img = req.files[i];
+            image.push({ url: img.path, filename: img.filename }); // Push each image object to the newlisting.image array
+        }
+        console.log("images:" + JSON.stringify(image));
+        newlisting.owner = req.user._id;
+        newlisting.image = image; // Assign the entire image array to newlisting.image
+       
+        newlisting.geometry = response.body.features[0].geometry;
+        let savedListing = await newlisting.save();
+        console.log(savedListing);
+        req.flash("success", "New Listing Created!");
+        res.redirect("/listings");
+    } catch (E) {
+        console.log("error\t" + E);
+    }
 };
 
 //update route
@@ -92,7 +102,13 @@ module.exports.updateListing = async (req, res) => {
         req.flash("error", "Listing you requested for does not exist");
         return res.redirect("/listings");
     }
+   let response = await geocodingClient.forwardGeocode({
+            query: `${req.body.Listing.location},${req.body.Listing.city} ${req.body.Listing.country}`,
+            limit: 1
+        }).send();
 
+        console.log("res\t" + JSON.stringify(response.body.features[0].geometry)); // Change this line
+    let geometry = response.body.features[0].geometry;
     console.log(id);
     let { title, description, price, country, location } =
         req.body.Listing;
@@ -100,10 +116,10 @@ module.exports.updateListing = async (req, res) => {
    let listing =  await Listing.findByIdAndUpdate(id, {
         title,
         description,
-       
         price,
         country,
         location,
+        geometry
     })
 
     if(req.file){
@@ -144,8 +160,8 @@ module.exports.editListing = async (req, res) => {
             let err = new ExpressError(404, "Listing not found");
             res.render("error.ejs", { err });
         }
-        let originalImage = listing.image.url;
-        originalImage = originalImage.replace("/upload","/upload/h_300,w_250");
+        let originalImage = listing.image?.url;
+        originalImage = originalImage?.replace("/upload","/upload/h_300,w_250");
         res.render("listings/edit.ejs", { listing, originalImage });
     } catch (err) {
         console.log(err);

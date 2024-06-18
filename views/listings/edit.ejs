@@ -38,11 +38,11 @@
                     Please provide a description.
                 </div>
             </div>
-      
+      <% for(let i = 0 ; i<listing.image.length;i++){ %>
             <div class="card col-6 offset-3 show-card listing-card">
                 Original Listing Image
                 <div class="card-img-top show-img-container">
-                    <img src="<%= originalImage %>" alt="Listing Image" class="card-img-top show-img"/>
+                    <img src="<%= listing.image[i].url %>" alt="Listing Image" class="card-img-top show-img"/>
                 </div>
             </div>
          
@@ -62,6 +62,7 @@
                     Please provide an image link.
                 </div>
             </div>
+            <% } %>
             <div class="row">
                 <div class = "mb-3 col-md-4">
                         <label for="price" class="form-label">Price</label>

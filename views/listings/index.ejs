@@ -112,14 +112,16 @@
               </div>
            </div>
         </div>
-    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 row-cols-xs-1 row-cols-1 mt-3">
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 row-cols-xs-1 row-cols-1 mt-3 text-center">
         <%for( let listing of allListing){%>
          
             <div class="card col listing-card " style="width: 20rem;">
                 
                 <a href="/listings/<%=listing._id%>" class="lisiting-link">
-                <img
-                 src=<%=listing.image.url%> class="card-img-top" alt="image of the house" style = "height : 20rem"/>
+                
+                <% if (listing.image && listing.image.length > 0) { %>
+                    <img src="<%=listing.image[0].url%>" class="card-img-top image" alt="image of the house" style="height: 20rem" />
+                <% } %>
                 <div class="card-img-overlay"></div>
                 <div class="card-body">
                   <p class="card-text"><b><%=listing.title%></b>
@@ -135,20 +137,31 @@
              
               <%}%>
     </div>
-<script>
-    let taxSwitch = document.getElementById("flexSwitchCheckDefault");
+    <script>
+        // const allListing = <%- JSON.stringify(allListing) %>;
+        window.addEventListener("load", (event) => {
+            let taxSwitch = document.getElementById("flexSwitchCheckDefault");
+            let listingCards = document.querySelectorAll(".listing-card");
     
-    taxSwitch.addEventListener("click", () => {
-    let taxInfo = document.querySelectorAll(".tax-info");
-    console.log("click");
-    for (let info of taxInfo) {
-        if (info.style.display !== "inline") {
-            info.style.display = "inline";
-        } else {
-            info.style.display = "none";
-        }
-    }
-});
-
-
-</script>
+            taxSwitch.addEventListener("click", () => {
+                let taxInfo = document.querySelectorAll(".tax-info");
+                console.log("click");
+                for (let info of taxInfo) {
+                    if (info.style.display !== "inline") {
+                        info.style.display = "inline";
+                    } else {
+                        info.style.display = "none";
+                    }
+                }
+            });
+    
+        //     listingCards.forEach((card) => {
+        //         card.addEventListener("pointerover", () => {
+        //             console.log("hover");
+        //             const listing = card.dataset.listing;
+        //             // Use the 'listing' variable as needed
+        //             img.innerHTML = `<img src="${listing.image[1].url}"`;
+        //         });
+        //     });
+        // });
+    </script>

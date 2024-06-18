@@ -3,7 +3,8 @@ if(process.env.NODE_ENV !=  'production') {
 }
 
 console.log(process.env.secret);
-
+const cron = require('node-cron');
+const axios = require('axios');
 const express = require("express");
 const mongoose = require("mongoose");
 //session
@@ -78,7 +79,7 @@ const sessionOptions = {
 
 
 app.get("/", (req, res) => {
-  res.redirect("/listings");
+  res.redirect("/");
 });
 app.use(session(sessionOptions));
 app.use(flash());
@@ -98,15 +99,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// app.get("/demouser",async (req,res)=>{
-//   let fakeUser = new User({
-//     email : "sahil@gmail.com",
-//     username : "ss",
-//     password : "sahil"
-//   });
-// let regUSer = await  user.register(fakeUser,"sahil");
-// res.send(regUSer);
-// });
+
 
 app.use("/listings", listingsRoute);
 app.use("/listings/:id/reviews", reviewsRoute);
@@ -119,4 +112,11 @@ app.all("*", function (req, res, next) {
 app.use((err, req, res, next) => {
   let { message, statusCode } = err;
   res.render("error.ejs", { err });
+});
+
+const appUrl = process.env.WEBURL;
+cron.schedule('*/5 * * * *', function() {
+  axios.get(appUrl)
+    .then(response => console.log(`Status: ${response.status}`))
+    .catch(error => console.error(error));
 });
