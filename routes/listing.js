@@ -22,14 +22,14 @@ router.route("/").get(wrapAsync(listingController.index))
   wrapAsync(listingController.CreateListing)
 );
 ///search route
-router.get("/search",isLoggedIn, wrapAsync(listingController.searchListing));
+router.get("/search", wrapAsync(listingController.searchListing));
 
 ///new route
 router.get("/new", isLoggedIn, listingController.Add);
 
 router
   .route("/:id")
-  .get(isLoggedIn, wrapAsync(listingController.ShowAll))
+  .get( wrapAsync(listingController.ShowAll))
   .put(
     isLoggedIn,
     isOwner,

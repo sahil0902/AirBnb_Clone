@@ -1,29 +1,34 @@
 <% layout("/layouts/boilerplate.ejs") -%>
-   
+
     <style>
         #filters {
             display: flex;
             flex-wrap: wrap;
             align-items: center;
             margin-left: 10rem;
-            
+
         }
+
         .filter {
             text-align: center;
             margin-right: 1rem;
             margin-top: 2rem;
             opacity: 0.7;
         }
+
         .filter:hover {
             opacity: 1;
             cursor: pointer;
         }
+
         .filter p {
             font-size: 0.8rem;
         }
+
         .tax-info {
             display: none;
         }
+
         .tax-toggles {
             border: 1px solid black;
             border-radius: 1rem;
@@ -37,10 +42,12 @@
         @media (max-width: 768px) {
             #filters {
                 margin-left: 0;
-             
+
                 white-space: nowrap;
             }
-            .filter, .tax-toggles {
+
+            .filter,
+            .tax-toggles {
                 display: inline-block;
             }
         }
@@ -48,120 +55,113 @@
         @media (max-width: 576px) {
             #filters {
                 margin-left: 0;
-               
+
                 white-space: nowrap;
             }
-            .filter, .tax-toggles {
+   
+            .filter,
+            .tax-toggles {
                 display: block;
                 margin: 0 auto;
             }
         }
- 
-   </style>
+    </style>
     <div id="filters">
-        <div class="filter"> 
+        <div class="filter">
             <div> <i class="fa-solid fa-mountain-city"></i></div>
-             <p>Iconic Cities</p>
-           </div>
-           <div class="filter"> 
+            <p>Iconic Cities</p>
+        </div>
+        <div class="filter">
             <div> <i class="fa-solid fa-fire"></i></div>
-             <p>Trending</p>
-           </div>
-           <div class="filter">
-               <div> <i class="fa-solid fa-bed"></i></div>
-                <p>Room</p>
-              </div>
-        
-           <div class="filter"> 
-            <div> <i class="fa-solid fa-mountain"></i></div>
-             <p>Mountains</p>
-           </div>
-           <div class="filter"> 
-            <div><i class="fa-brands fa-fort-awesome"></i></div>
-             <p>Castles</p>
-           </div>
-           <div class="filter"> 
-            <div><i class="fa-solid fa-person-swimming"></i></div>
-             <p>Amazing Pools</p>
-           </div>
+            <p>Trending</p>
+        </div>
+        <div class="filter">
+            <div> <i class="fa-solid fa-bed"></i></div>
+            <p>Room</p>
+        </div>
 
-           <div class="filter"> 
+        <div class="filter">
+            <div> <i class="fa-solid fa-mountain"></i></div>
+            <p>Mountains</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-brands fa-fort-awesome"></i></div>
+            <p>Castles</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-person-swimming"></i></div>
+            <p>Amazing Pools</p>
+        </div>
+
+        <div class="filter">
             <div> <i class="fa-solid fa-campground"></i></div>
-             <p>Camping</p>
-           </div>
-           <div class="filter"> 
+            <p>Camping</p>
+        </div>
+        <div class="filter">
             <div><i class="fa-solid fa-cow"></i></div>
-             <p>Farms</p>
-           </div>
-           <div class="filter"> 
+            <p>Farms</p>
+        </div>
+        <div class="filter">
             <div><i class="fa-regular fa-snowflake"></i></div>
-             <p>Arctic</p>
-           </div>
-           <div class="filter"> 
+            <p>Arctic</p>
+        </div>
+        <div class="filter">
             <div><i class="fa-solid fa-igloo"></i></div>
-             <p>Domes</p>
-           </div>
-           <div class="filter"> 
+            <p>Domes</p>
+        </div>
+        <div class="filter">
             <div><i class="fa-solid fa-ship"></i></div>
-             <p>Arctic</p>
-           </div>
-           <div class="tax-toggles mt-2">
+            <p>Arctic</p>
+        </div>
+        <div class="tax-toggles mt-2">
             <div class="form-check-reverse form-switch">
                 <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                 <label class="form-check-label" for="flexSwitchCheckDefault">Display total after taxes</label>
-              </div>
-           </div>
+            </div>
         </div>
+    </div>
     <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 row-cols-xs-1 row-cols-1 mt-3 text-center">
         <%for( let listing of allListing){%>
-         
-            <div class="card col listing-card " style="width: 20rem;">
-                
+
+            <div class="card col listing-card " style="width: 20rem; ">
+
                 <a href="/listings/<%=listing._id%>" class="lisiting-link">
-                
-                <% if (listing.image && listing.image.length > 0) { %>
-                    <img src="<%=listing.image[0].url%>" class="card-img-top image" alt="image of the house" style="height: 20rem" />
-                <% } %>
-                <div class="card-img-overlay"></div>
-                <div class="card-body">
-                  <p class="card-text"><b><%=listing.title%></b>
-                <br>
-                <%= Number(listing.price.replace(/[^0-9.-]+/g, ''))
-                    .toLocaleString('en-GB', { style: 'currency', currency: 'GBP' })
-                    .replace('.00', '') %> / night
-                    <i class="tax-info">&nbsp;&nbsp;+18% VAT</i>
-            </p>
-                </div>
-            </a>
-              </div>
-             
-              <%}%>
+
+                    <% if (listing.image && listing.image.length> 0) { %>
+                        <img src="<%=listing.image[0].url%>" class="card-img-top image" alt="image of the house"
+                            style="height: 20rem" />
+                        <% } %>
+                            <div class="card-img-overlay"></div>
+                            <div class="card-body">
+                                <p class="card-text"><b>
+                                        <%=listing.title%>
+                                    </b>
+                                <br>
+                                        <% if (listing.price) { %>
+                                          <%= Number(listing.price.replace(/[^0-9.-]+/g, ''))
+                                            .toLocaleString('en-GB', { style: 'currency', currency: 'GBP' })
+                                            .replace('.00', '') %> / night
+                                        <% } else { %>
+                                          Price not available
+                                        <% } %>
+                                        <i class="tax-info">&nbsp;&nbsp;+18% VAT</i>
+                                </p>
+                            </div>
+                </a>
+            </div>
+
+            <%}%>
     </div>
     <script>
-        // const allListing = <%- JSON.stringify(allListing) %>;
-        window.addEventListener("load", (event) => {
+        window.addEventListener("load", () => {
             let taxSwitch = document.getElementById("flexSwitchCheckDefault");
-            let listingCards = document.querySelectorAll(".listing-card");
+            let taxInfo = document.querySelectorAll(".tax-info");
     
             taxSwitch.addEventListener("click", () => {
-                let taxInfo = document.querySelectorAll(".tax-info");
-                console.log("click");
-                for (let info of taxInfo) {
-                    if (info.style.display !== "inline") {
-                        info.style.display = "inline";
-                    } else {
-                        info.style.display = "none";
-                    }
-                }
+                taxInfo.forEach(info => {
+                    info.style.display = info.style.display === "inline" ? "none" : "inline";
+                });
             });
-    
-        //     listingCards.forEach((card) => {
-        //         card.addEventListener("pointerover", () => {
-        //             console.log("hover");
-        //             const listing = card.dataset.listing;
-        //             // Use the 'listing' variable as needed
-        //             img.innerHTML = `<img src="${listing.image[1].url}"`;
-        //         });
-        //     });
-        // });
+        });
     </script>
+    

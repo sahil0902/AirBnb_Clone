@@ -114,9 +114,9 @@ app.use((err, req, res, next) => {
   res.render("error.ejs", { err });
 });
 
-const appUrl = process.env.WEBURL;
-cron.schedule('*/5 * * * *', function() {
-  axios.get(appUrl)
-    .then(response => console.log(`Status: ${response.status}`))
-    .catch(error => console.error(error));
-});
+// const appUrl = process.env.WEBURL;
+// cron.schedule('*/5 * * * *', function() {
+//   axios.get(appUrl)
+//     .then(response => console.log(`Status: ${response.status}`))
+//     .catch(error => console.error(error));
+// });
