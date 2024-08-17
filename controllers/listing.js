@@ -38,22 +38,24 @@ module.exports.ShowAll = async (req, res, next) => {
     res.render("listings/show.ejs", { listing });
 };
 ///search route 
-module.exports.searchListing = async (req,res) =>{
-    let search = req.query;
-    console.log(search);
-let query = req.query.query;
-let searchResult = await Listing.find({
-    $or: [
-        { title: { $regex: query, $options: "i" } },
-        { description: { $regex: query, $options: "i" } },
-        { location: { $regex: query, $options: "i" } },
-        { country: { $regex: query, $options: "i" } },
-        { price: { $regex: query, $options: "i" } }
-    ]
-});
-    console.log(searchResult);
-    res.render("listings/search.ejs" ,{searchResult});
-}
+module.exports.searchListing = async (req, res) => {
+    try {
+        let query = req.query.query;
+        let searchResult = await Listing.find({
+            $or: [
+                { title: { $regex: query, $options: "i" } },
+                { description: { $regex: query, $options: "i" } },
+                { location: { $regex: query, $options: "i" } },
+                { country: { $regex: query, $options: "i" } },
+                { price: { $regex: query, $options: "i" } }
+            ]
+        });
+        res.render("listings/search.ejs", { searchResult });
+    } catch (error) {
+        console.error("Search error:", error);
+        res.status(500).render("error.ejs", { error: "An error occurred while searching. Please try again." });
+    }
+};
 module.exports.CreateListing = async (req, res, next) => {
    
     if (!req.files || Object.keys(req.files).length === 0) {

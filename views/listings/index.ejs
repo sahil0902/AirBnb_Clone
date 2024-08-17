@@ -50,6 +50,9 @@
             .tax-toggles {
                 display: inline-block;
             }
+            .custom-margin {
+                margin-left: 10% !important;
+            }
         }
 
         @media (max-width: 576px) {
@@ -63,6 +66,11 @@
             .tax-toggles {
                 display: block;
                 margin: 0 auto;
+            }
+        }
+        @media (min-width: 992px) { /* Large screens (≥992px) */
+            .custom-margin {
+                margin-left: 10rem !important;
             }
         }
     </style>
@@ -120,7 +128,7 @@
             </div>
         </div>
     </div>
-    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 row-cols-xs-1 row-cols-1 mt-3 text-center">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-4 g-4 mt-1 ms-3 me-3 custom-margin">
         <%for( let listing of allListing){%>
 
             <div class="card col listing-card " style="width: 20rem; ">
@@ -131,7 +139,7 @@
                         <img src="<%=listing.image[0].url%>" class="card-img-top image" alt="image of the house"
                             style="height: 20rem" />
                         <% } %>
-                            <div class="card-img-overlay"></div>
+                        
                             <div class="card-body">
                                 <p class="card-text"><b>
                                         <%=listing.title%>
@@ -146,6 +154,7 @@
                                         <% } %>
                                         <i class="tax-info">&nbsp;&nbsp;+18% VAT</i>
                                 </p>
+                           
                             </div>
                 </a>
             </div>
@@ -156,7 +165,7 @@
         window.addEventListener("load", () => {
             let taxSwitch = document.getElementById("flexSwitchCheckDefault");
             let taxInfo = document.querySelectorAll(".tax-info");
-    
+    1
             taxSwitch.addEventListener("click", () => {
                 taxInfo.forEach(info => {
                     info.style.display = info.style.display === "inline" ? "none" : "inline";
