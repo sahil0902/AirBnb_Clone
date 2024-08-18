@@ -88,7 +88,7 @@ filters.forEach(filter => {
     filter.addEventListener("click", () => {
         console.log(filter.innerText);
         Toastify({
-            text: `${filterName} feature is coming soon! Stay tuned for updates.`,
+            text: `${filterName} category is coming soon! Stay tuned for updates.`,
             duration: 4000,
             style: {
                 background: "linear-gradient(to right, #FF5A5F, #FFB400)",
