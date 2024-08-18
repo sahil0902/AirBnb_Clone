@@ -24,7 +24,7 @@ module.exports.isLoggedIn = (req, res, next) => {
   if (!req.isAuthenticated()) {
     // so we can redirect him to the same URL
     req.session.redirectUrl = req.originalUrl;
-    req.flash("error", "Oops! No login? No secret handshake for you! 🙅‍♂️🚫🤝");
+    req.flash("error", "Please Login");
     return res.redirect("/login");
   }
   next();

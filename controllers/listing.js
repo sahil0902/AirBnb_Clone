@@ -11,6 +11,12 @@ module.exports.index = async (req, res) => {
     res.render("listings/index.ejs", { allListing });
 };
 
+//filter route
+module.exports.filterListings =  async (req, res) => {
+    const allListing = await Listing.find({});
+    res.json(allListing);
+};
+
 //new listing route
 module.exports.Add = async (req, res) => {
     console.log(req.user);
@@ -110,15 +116,16 @@ module.exports.updateListing = async (req, res) => {
             limit: 1
         }).send();
 
-        console.log("res\t" + JSON.stringify(response.body.features[0].geometry)); // Change this line
+        console.log("res\t" + JSON.stringify(response.body.features[0].geometry)); 
     let geometry = response.body.features[0].geometry;
     console.log(id);
-    let { title, description, price, country, location } =
+    let { title, description,category, price, country, location } =
         req.body.Listing;
 
    let listing =  await Listing.findByIdAndUpdate(id, {
         title,
         description,
+        category,
         price,
         country,
         location,

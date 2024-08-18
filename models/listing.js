@@ -13,6 +13,10 @@ const listingSchema = new Schema ({
             filename: String
         }
     ],
+    category: {
+        type: String,
+        default: "Room"
+    },
     price: String,
     location: String,
     country: String,
@@ -23,6 +27,7 @@ const listingSchema = new Schema ({
             ref: "Review"
         }
     ],
+    
     owner : {
         type : Schema.Types.ObjectId,
         ref : "User"

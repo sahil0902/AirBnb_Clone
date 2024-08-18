@@ -50,6 +50,7 @@
             .tax-toggles {
                 display: inline-block;
             }
+
             .custom-margin {
                 margin-left: 10% !important;
             }
@@ -61,14 +62,17 @@
 
                 white-space: nowrap;
             }
-   
+
             .filter,
             .tax-toggles {
                 display: block;
                 margin: 0 auto;
             }
         }
-        @media (min-width: 992px) { /* Large screens (≥992px) */
+
+        @media (min-width: 992px) {
+
+            /* Large screens (≥992px) */
             .custom-margin {
                 margin-left: 10rem !important;
             }
@@ -139,38 +143,26 @@
                         <img src="<%=listing.image[0].url%>" class="card-img-top image" alt="image of the house"
                             style="height: 20rem" />
                         <% } %>
-                        
+
                             <div class="card-body">
                                 <p class="card-text"><b>
                                         <%=listing.title%>
                                     </b>
-                                <br>
-                                        <% if (listing.price) { %>
-                                          <%= Number(listing.price.replace(/[^0-9.-]+/g, ''))
-                                            .toLocaleString('en-GB', { style: 'currency', currency: 'GBP' })
-                                            .replace('.00', '') %> / night
-                                        <% } else { %>
-                                          Price not available
-                                        <% } %>
-                                        <i class="tax-info">&nbsp;&nbsp;+18% VAT</i>
+                                    <br>
+                                    <% if (listing.price) { %>
+                                        <%= Number(listing.price.replace(/[^0-9.-]+/g, '' )) .toLocaleString('en-GB', {
+                                            style: 'currency' , currency: 'GBP' }) .replace('.00', '' ) %> / night
+                                            <% } else { %>
+                                                Price not available
+                                                <% } %>
+                                                    <i class="tax-info">&nbsp;&nbsp;+18% VAT</i>
                                 </p>
-                           
+
                             </div>
                 </a>
             </div>
 
             <%}%>
+                <script src="js/filter.js"></script>
     </div>
-    <script>
-        window.addEventListener("load", () => {
-            let taxSwitch = document.getElementById("flexSwitchCheckDefault");
-            let taxInfo = document.querySelectorAll(".tax-info");
-    1
-            taxSwitch.addEventListener("click", () => {
-                taxInfo.forEach(info => {
-                    info.style.display = info.style.display === "inline" ? "none" : "inline";
-                });
-            });
-        });
-    </script>
-    
+   

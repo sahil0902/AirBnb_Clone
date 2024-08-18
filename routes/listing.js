@@ -23,6 +23,8 @@ router.route("/").get(wrapAsync(listingController.index))
 );
 ///search route
 router.get("/search", wrapAsync(listingController.searchListing));
+//filter rote 
+router.get("/filter-listings", wrapAsync(listingController.filterListings));
 
 ///new route
 router.get("/new", isLoggedIn, listingController.Add);
